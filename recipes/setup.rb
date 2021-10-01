@@ -71,6 +71,7 @@ apt_repository 'apache2' do
 end
 
 apt_repository 'nginx' do
+  ignore_failure true
   uri        'http://nginx.org/packages/ubuntu/'
   components ['nginx']
   keyserver 'keyserver.ubuntu.com'
