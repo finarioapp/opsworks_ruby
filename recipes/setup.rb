@@ -84,7 +84,7 @@ bundler2_applicable = Gem::Requirement.new('>= 3.0.0.beta1').satisfied_by?(
 )
 gem_package 'bundler' do
   action :install
-  version '~> 1' unless bundler2_applicable
+  version '2.3.26' unless bundler2_applicable
 end
 
 if node['platform_family'] == 'debian'
