@@ -42,6 +42,28 @@ server {
     add_header X-Content-Type-Options nosniff;
   }
 
+  <% if @out[:stonly_key] %>
+  location ^~ /help {
+    rewrite ^/help/(.*) /$1 break;
+    auth_request /is_authenticated;
+    proxy_set_header x-stonlykb-secret '<%= @out[:stonly_key] %>';
+    proxy_set_header x-stonlykb-base-url '/help';
+    proxy_set_header x-stonlykb-original-url $host$request_uri;
+    proxy_pass https://finario.stonly.com;
+  }
+
+  location /is_authenticated {
+    internal;
+    proxy_method      GET;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header Host $http_host;
+    proxy_pass_request_body off;
+    proxy_set_header Content-Length "";
+    proxy_set_header X-Original-URI $request_uri;
+    proxy_pass http://<%= @name %>_<%= @application[:domains].first %>;
+  }
+  <% end %>
+
   location @<%= @name %> {
     proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
     proxy_set_header Host $http_host;
@@ -140,6 +162,27 @@ server {
     add_header Access-Control-Expose-Headers ETag;
     add_header X-Content-Type-Options nosniff;
   }
+  <% if @out[:stonly_key] %>
+  location ^~ /help {
+    rewrite ^/help/(.*) /$1 break;
+    auth_request /is_authenticated;
+    proxy_set_header x-stonlykb-secret '<%= @out[:stonly_key] %>';
+    proxy_set_header x-stonlykb-base-url '/help';
+    proxy_set_header x-stonlykb-original-url $host$request_uri;
+    proxy_pass https://finario.stonly.com;
+  }
+
+  location /is_authenticated {
+    internal;
+    proxy_method      GET;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header Host $http_host;
+    proxy_pass_request_body off;
+    proxy_set_header Content-Length "";
+    proxy_set_header X-Original-URI $request_uri;
+    proxy_pass http://<%= @name %>_<%= @application[:domains].first %>;
+  }
+  <% end %>
 
   location @<%= @name %> {
     proxy_set_header X-Forwarded-Proto https;
