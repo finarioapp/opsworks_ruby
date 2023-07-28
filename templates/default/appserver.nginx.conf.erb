@@ -43,8 +43,8 @@ server {
   }
 
   <% if @out[:stonly_key] %>
-  location ^~ /help {
-    rewrite ^/help/(.*) /$1 break;
+  location ^~ /finario-help {
+    rewrite ^/finario-help/(.*) /$1 break;
     auth_request /is_authenticated;
     proxy_set_header x-stonlykb-secret '<%= @out[:stonly_key] %>';
     proxy_set_header x-stonlykb-base-url '/help';
@@ -163,8 +163,8 @@ server {
     add_header X-Content-Type-Options nosniff;
   }
   <% if @out[:stonly_key] %>
-  location ^~ /help {
-    rewrite ^/help/(.*) /$1 break;
+  location ^~ /finario-help {
+    rewrite ^/finario-help/(.*) /$1 break;
     auth_request /is_authenticated;
     proxy_set_header x-stonlykb-secret '<%= @out[:stonly_key] %>';
     proxy_set_header x-stonlykb-base-url '/help';
