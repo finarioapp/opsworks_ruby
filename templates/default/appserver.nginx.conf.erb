@@ -47,7 +47,7 @@ server {
     rewrite ^/finario-help/(.*) /$1 break;
     auth_request /is_authenticated;
     proxy_set_header x-stonlykb-secret '<%= @out[:stonly_key] %>';
-    proxy_set_header x-stonlykb-base-url '/help';
+    proxy_set_header x-stonlykb-base-url '/finario-help';
     proxy_set_header x-stonlykb-original-url $host$request_uri;
     proxy_pass https://finario.stonly.com;
   }
@@ -167,7 +167,7 @@ server {
     rewrite ^/finario-help/(.*) /$1 break;
     auth_request /is_authenticated;
     proxy_set_header x-stonlykb-secret '<%= @out[:stonly_key] %>';
-    proxy_set_header x-stonlykb-base-url '/help';
+    proxy_set_header x-stonlykb-base-url '/finario-help';
     proxy_set_header x-stonlykb-original-url $host$request_uri;
     proxy_pass https://finario.stonly.com;
   }
