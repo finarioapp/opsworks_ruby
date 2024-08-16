@@ -2,12 +2,12 @@
 
 def applications
   Chef::Log.warn('This recipe uses search. Chef Solo does not support search.') if Chef::Config[:solo]
-  search(:aws_opsworks_app)
+  node['aws_opsworks_app']
 end
 
 def rdses
   Chef::Log.warn('This recipe uses search. Chef Solo does not support search.') if Chef::Config[:solo]
-  search(:aws_opsworks_rds_db_instance)
+  node['aws_opsworks_rds_db_instance']
 end
 
 def globals(index, application)
